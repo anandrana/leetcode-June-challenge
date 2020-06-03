@@ -1,0 +1,28 @@
+class Solution:
+    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+        n=len(costs)
+        list1=sorted(costs,key=lambda x:abs(x[0]-x[1]),reverse=True)
+        m=n//2
+        
+        total=0
+        countA=countB=m
+        for a,b in list1:
+            if countA>0 and countB>0:
+                if(a<b):
+                    total+=a
+                    countA-=1
+                else:
+                    total+=b
+                    countB-=1
+            elif(countA==0):
+                total+=b
+                countB-=1
+            elif(countB==0):
+                total+=a
+                countA-=1
+        return total
+    
+
+    
+    
+    
