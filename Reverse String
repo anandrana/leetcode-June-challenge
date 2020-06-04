@@ -1,0 +1,7 @@
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        n=len(s)
+        m=n//2
+        n=n-1
+        for i in range(m):
+                s[i],s[n-i]=s[n-i],s[i]
