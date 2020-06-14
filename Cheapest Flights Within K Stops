@@ -1,0 +1,27 @@
+import heapq
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
+        graph=[[0 for i in range(n)]for j in range(n)]
+        
+        for i,j,p in flights:
+            graph[i][j]=p
+        # print(graph)
+        
+        heap=[(0,src,K+1)]
+        
+        while heap:
+            price,node,remainstops=heapq.heappop(heap)
+            
+            if(node==dst):
+                return price
+            if(remainstops>0):
+                for i in range(n):
+                    if(graph[node][i]>0):
+                        heapq.heappush(heap,(price+graph[node][i],i,remainstops-1))
+            # print(heap)
+            
+        return -1
+    
+        
+        
+        
