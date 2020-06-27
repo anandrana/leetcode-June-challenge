@@ -1,0 +1,25 @@
+# class Solution:
+#     def numSquares(self, n: int) -> int:
+#         dp=[0,1,2,3]
+        
+#         for i in range(4,n+1):
+#             dp.append(i)
+#             for x in range(1,int(math.sqrt(i))+1):
+#                 temp=x*x
+#                 if(temp>i):
+#                     break
+#                 else:
+#                     dp[i]=min(dp[i],1+dp[i-temp])
+#         return dp[n]
+    
+class Solution:
+    def numSquares(self, n):
+        if int(sqrt(n))**2 == n: return 1
+        for j in range(int(sqrt(n)) + 1):
+            if int(sqrt(n - j*j))**2 == n - j*j: return 2
+            
+        while n % 4 == 0: 
+            n >>= 2
+        if n % 8 == 7: return 4
+        return 3
+        
