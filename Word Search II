@@ -1,0 +1,51 @@
+class Trie:
+    def __init__(self):
+        self.children={}
+    
+    def insert(self,word):
+        
+        def helper(c,table):
+            if c not in table:
+                table[c]={}
+            return table[c]
+        
+        table=self.children
+        for c in word:
+            table=helper(c,table)
+        
+        table['@']=word
+        
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        if(len(words)==0):
+            return []
+        obj=Trie()
+        
+        for word in words:
+            obj.insert(word)
+        
+        m=len(board)
+        n=len(board[0])
+        res=[]
+        
+        def dfs(i,j,t):
+            t=t[board[i][j]]
+            if '@' in t:
+                res.append(t['@'])
+                t.pop('@')
+                
+            tmp, board[i][j] = board[i][j], '*'
+            for x, y in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                if 0 <= i + x < m and 0 <= j + y < n and board[i + x][j + y] in t:
+                    dfs(i + x, j + y, t)
+            board[i][j] = tmp
+            
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] in obj.children:
+                    dfs(i,j,obj.children)
+        
+        return res
+    
+        
+        
